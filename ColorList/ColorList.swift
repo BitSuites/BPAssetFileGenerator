@@ -105,47 +105,99 @@ class ColorList: ListGeneratorHelper {
     
     private func writeColor(name: String, rgba: [String]?, colorString: String?, assets: Bool) {
         if rgba != nil {
-            var implementation = ""
-            if colorString != nil {
-                implementation.append("    // \(ColorList.capitalizedString(name)) Color \(colorString!)\n")
-            } else {
-                implementation.append("    // \(ColorList.capitalizedString(name)) Color\n")
-            }
-            implementation.append("    static var \(ColorList.methodName(name)): UIColor {\n")
-            if assets {
-                if minimumSupportVersion < 11 {
-                    // For Assets The Color can only be read on iOS 11 and up.
-                    implementation.append("        if #available(iOS 11.0, *) {\n")
-                    implementation.append("            if let foundColor = UIColor(named: \"\(name)\") {\n")
-                    implementation.append("                return foundColor\n")
-                    implementation.append("            }\n")
-                    implementation.append("        }\n")
+            if swift {
+                var implementation = ""
+                if colorString != nil {
+                    implementation.append("    // \(ColorList.capitalizedString(name)) Color \(colorString!)\n")
                 } else {
-                    implementation.append("        if let foundColor = UIColor(named: \"\(name)\") {\n")
-                    implementation.append("            return foundColor\n")
-                    implementation.append("        }\n")
+                    implementation.append("    // \(ColorList.capitalizedString(name)) Color\n")
                 }
+                implementation.append("    static var \(ColorList.methodName(name)): UIColor {\n")
+                if assets {
+                    if minimumSupportVersion < 11 {
+                        // For Assets The Color can only be read on iOS 11 and up.
+                        implementation.append("        if #available(iOS 11.0, *) {\n")
+                        implementation.append("            if let foundColor = UIColor(named: \"\(name)\") {\n")
+                        implementation.append("                return foundColor\n")
+                        implementation.append("            }\n")
+                        implementation.append("        }\n")
+                    } else {
+                        implementation.append("        if let foundColor = UIColor(named: \"\(name)\") {\n")
+                        implementation.append("            return foundColor\n")
+                        implementation.append("        }\n")
+                    }
+                }
+                implementation.append("        return UIColor(red:\(rgba![0]), green:\(rgba![1]), blue:\(rgba![2]), alpha:\(rgba![3]))\n")
+                implementation.append("    }\n\n")
+                fileWriter.outputMethods.append(implementation)
+            } else {
+                // Setup Method
+                var method = ""
+                if colorString != nil {
+                    method.append("// \(ColorList.capitalizedString(name)) Color \(colorString!)\n")
+                } else {
+                    method.append("// \(ColorList.capitalizedString(name)) Color\n")
+                }
+                method.append("+ (UIColor *)\(ColorList.methodName(name))")
+                
+                // Add Method to both m and h files with appropriate endings.
+                var implementation = method;
+                method.append(";\n")
+                implementation.append(" {\n")
+                
+                // Add additional info for method
+                if assets {
+                    if minimumSupportVersion < 11 {
+                        // For Assets The Color can only be read on iOS 11 and up.
+                        implementation.append("    if (@available(iOS 11.0, *)) {\n")
+                        implementation.append("        UIColor *foundColor = [UIColor colorNamed:@\"\(name)\"];\n")
+                        implementation.append("        if (foundColor != nil) {\n")
+                        implementation.append("            return foundColor;\n")
+                        implementation.append("        }\n")
+                        implementation.append("    }\n")
+                    } else {
+                        implementation.append("    UIColor *foundColor = [UIColor colorNamed:@\"\(name)\"];\n")
+                        implementation.append("    if (foundColor != nil) {\n")
+                        implementation.append("        return foundColor;\n")
+                        implementation.append("    }\n")
+                    }
+                }
+                implementation.append("    return [UIColor colorWithRed:\(rgba![0]) green:\(rgba![1]) blue:\(rgba![2]) alpha:\(rgba![3])];\n")
+                implementation.append("}\n\n")
+                
+                // Add Header and Method to file writer
+                fileWriter.outputHeaders.append(method)
+                fileWriter.outputMethods.append(implementation)
             }
-            implementation.append("        return UIColor(red:\(rgba![0]), green:\(rgba![1]), blue:\(rgba![2]), alpha:\(rgba![3]))\n")
-            implementation.append("    }\n\n")
-            fileWriter.outputMethods.append(implementation)
         } else if verify {
             // Add the warning message.
-            var warningMessage = ""
-            warningMessage.append("    /// Warning message so console is notified.\n")
-            warningMessage.append("    @available(iOS, deprecated: 1.0, message: \"Invalid Color\")\n")
-            warningMessage.append("    private func InvalidColor(){}\n\n")
-            fileWriter.warningMessage = warningMessage
-            
-            // Add the invalid color for user to fix.
-            var implementation = ""
-            implementation.append("    // Invalid Hex Color \(name) '\(colorString!)' please make sure it is in the proper format 'AAAAAA'\n")
-            implementation.append("    // Invalid RGB or RGBA Color \(name) '\(colorString!)' please make sure it is in the proper format 'r,g,b,a' or 'r,g,b'\n")
-            implementation.append("    private var \(name): UIColor? {\n")
-            implementation.append("        InvalidColor()\n")
-            implementation.append("        return nil\n")
-            implementation.append("    }\n\n")
-            fileWriter.outputMethods.append(implementation)
+            if swift {
+                var warningMessage = ""
+                warningMessage.append("    /// Warning message so console is notified.\n")
+                warningMessage.append("    @available(iOS, deprecated: 1.0, message: \"Invalid Color\")\n")
+                warningMessage.append("    private func InvalidColor(){}\n\n")
+                fileWriter.warningMessage = warningMessage
+                
+                // Add the invalid color for user to fix.
+                var implementation = ""
+                implementation.append("    // Invalid Hex Color \(name) '\(colorString!)' please make sure it is in the proper format 'AAAAAA'\n")
+                implementation.append("    // Invalid RGB or RGBA Color \(name) '\(colorString!)' please make sure it is in the proper format 'r,g,b,a' or 'r,g,b'\n")
+                implementation.append("    private var \(name): UIColor? {\n")
+                implementation.append("        InvalidColor()\n")
+                implementation.append("        return nil\n")
+                implementation.append("    }\n\n")
+                fileWriter.outputMethods.append(implementation)
+            } else {
+                // Add the invalid color for user to fix.
+                var implementation = ""
+                implementation.append("// Invalid Hex Color \(name) '\(colorString!)' please make sure it is in the proper format 'AAAAAA'\n")
+                implementation.append("// Invalid RGB or RGBA Color \(name) '\(colorString!)' please make sure it is in the proper format 'r,g,b,a' or 'r,g,b'\n")
+                implementation.append("+ (UIColor *)\(name) {\n")
+                implementation.append("    #warning Invalid Color\n")
+                implementation.append("    return nil;\n")
+                implementation.append("}\n\n")
+                fileWriter.outputMethods.append(implementation)
+            }
         }
     }
     
@@ -161,7 +213,7 @@ class ColorList: ListGeneratorHelper {
         }
         
         // Make sure string is of correct length
-        if hexString.characters.count != 6 {
+        if hexString.count != 6 {
             return nil
         }
         
@@ -276,12 +328,21 @@ class ColorList: ListGeneratorHelper {
         let command = "grep -i -r\(includeExtensionsString) \"<namedColor name=\\\"*\\\"\" \"\(rootPath!)\""
         if ListGeneratorHelper.runStringAsCommand(command) != nil {
             var errorMessage = ""
-            errorMessage.append("    /// xcassets colors are not supported in storboard or nib files for devices running pre iOS11 remove them or the app will crash for those users.\n")
-            errorMessage.append("    /// Recommend setting the colors in the source code to keep the global color scheme if changing.\n")
-            errorMessage.append("    private var storyboardOrNibPreiOS11: UIColor? {\n")
-            errorMessage.append("        PreiOS11()\n")
-            errorMessage.append("        return nil\n")
-            errorMessage.append("    }\n\n")
+            if swift {
+                errorMessage.append("    /// xcassets colors are not supported in storboard or nib files for devices running pre iOS11 remove them or the app will crash for those users.\n")
+                errorMessage.append("    /// Recommend setting the colors in the source code to keep the global color scheme if changing.\n")
+                errorMessage.append("    private var storyboardOrNibPreiOS11: UIColor? {\n")
+                errorMessage.append("        PreiOS11()\n")
+                errorMessage.append("        return nil\n")
+                errorMessage.append("    }\n\n")
+            } else {
+                errorMessage.append("/// xcassets colors are not supported in storboard or nib files for devices running pre iOS11 remove them or the app will crash for those users.\n")
+                errorMessage.append("/// Recommend setting the colors in the source code to keep the global color scheme if changing.\n")
+                errorMessage.append("+ (UIColor *)storyboardOrNibPreiOS11 {\n")
+                errorMessage.append("    PreiOS11();\n")
+                errorMessage.append("    return nil;\n")
+                errorMessage.append("}\n\n")
+            }
             
             if fileWriter.warningMessage == nil {
                 fileWriter.warningMessage = errorMessage
@@ -332,20 +393,28 @@ class ColorList: ListGeneratorHelper {
             var hasMissingImage = false
             do {
                 let regex = try NSRegularExpression(pattern: "<namedColor name=\".*?\"", options: NSRegularExpression.Options())
-                let regexMatches = regex.matches(in: result, options: NSRegularExpression.MatchingOptions(), range: NSMakeRange(0, result.characters.count))
+                let regexMatches = regex.matches(in: result, options: NSRegularExpression.MatchingOptions(), range: NSMakeRange(0, result.count))
                 for nextMatch in regexMatches {
                     let fullString = (result as NSString).substring(with: nextMatch.range(at: 0))
-                    let colorName = (fullString as NSString).substring(with: NSMakeRange(18, (fullString.characters.count - 19)))
+                    let colorName = (fullString as NSString).substring(with: NSMakeRange(18, (fullString.count - 19)))
                     
                     // Generate Method for file if we don't have the image in our list
                     if !allColors.contains(colorName) {
                         let methodName = ListGeneratorHelper.methodName(colorName)
                         var implementation = ""
-                        implementation.append("    /// \(colorName) is in a Storyboard or Nib but is not in assets files most likely removed.\n")
-                        implementation.append("    private var \(methodName): UIColor? {\n")
-                        implementation.append("        MissingColor()\n")
-                        implementation.append("        return nil\n")
-                        implementation.append("    }\n\n")
+                        if swift {
+                            implementation.append("    /// \(colorName) is in a Storyboard or Nib but is not in assets files most likely removed.\n")
+                            implementation.append("    private var \(methodName): UIColor? {\n")
+                            implementation.append("        MissingColor()\n")
+                            implementation.append("        return nil\n")
+                            implementation.append("    }\n\n")
+                        } else {
+                            implementation.append("/// \(colorName) is in a Storyboard or Nib but is not in assets files most likely removed.\n")
+                            implementation.append("+ (UIColor *)\(methodName) {\n")
+                            implementation.append("    #warning Missing Color\n")
+                            implementation.append("    return nil\n")
+                            implementation.append("}\n\n");
+                        }
                         fileWriter.outputMethods.append(implementation)
 
                         hasMissingImage = true
@@ -353,8 +422,8 @@ class ColorList: ListGeneratorHelper {
                 }
             } catch {}
             
-            // Add Warning Message to output file
-            if hasMissingImage {
+            // Add Warning Message to output file for swift files
+            if hasMissingImage && swift {
                 var missingImageMessage = ""
                 missingImageMessage.append("    /// Warning message so console is notified.\n")
                 missingImageMessage.append("    @available(iOS, deprecated: 1.0, message: \"Missing Storyboard or Nib Custom Color\")\n")

@@ -52,15 +52,37 @@ class ImagesList: ListGeneratorHelper {
         allImages.append(imageName)
         
         // Generate Method for file
-        var implementation = ""
-        implementation.append("    /// \(imageName) Image\n")
-        implementation.append("    static var \(methodName): UIImage? {\n")
-        if !isUsedImage(imageName, method: methodName) {
-            implementation.append("        ImageNotUsed()\n")
+        if swift {
+            var implementation = ""
+            implementation.append("    /// \(imageName) Image\n")
+            implementation.append("    static var \(methodName): UIImage? {\n")
+            if !isUsedImage(imageName, method: methodName) {
+                implementation.append("        ImageNotUsed()\n")
+            }
+            implementation.append("        return UIImage(named: \"\(imageName)\")\n")
+            implementation.append("    }\n\n")
+            fileWriter.outputMethods.append(implementation)
+        } else {
+            // Setup Method
+            var method = "/// \(imageName) Image\n"
+            method.append("+ (UIImage *)\(methodName)")
+            
+            // Add Method to both m and h files with appropriate endings.
+            var implementation = method;
+            method.append(";\n")
+            implementation.append(" {\n")
+            
+            // Add additional info for method
+            if !isUsedImage(imageName, method: methodName) {
+                implementation.append("    #warning Image Not Used\n")
+            }
+            implementation.append("    return [UIImage imageNamed:@\"\(imageName)\"];\n")
+            implementation.append("}\n\n")
+            
+            // Add Header and Method to file writer
+            fileWriter.outputHeaders.append(method)
+            fileWriter.outputMethods.append(implementation)
         }
-        implementation.append("        return UIImage(named: \"\(imageName)\")\n")
-        implementation.append("    }\n\n")
-        fileWriter.outputMethods.append(implementation)
     }
     
     private func findUsedImages() {
@@ -107,16 +129,18 @@ class ImagesList: ListGeneratorHelper {
             return true
         }
         
-        // Add Warning Message to output file
-        var notUsedMessage = ""
-        notUsedMessage.append("    /// Warning message so console is notified.\n")
-        notUsedMessage.append("    @available(iOS, deprecated: 1.0, message: \"Image Not Used\")\n")
-        notUsedMessage.append("    private class func ImageNotUsed(){}\n\n")
-        
-        if fileWriter.warningMessage == nil {
-            fileWriter.warningMessage = notUsedMessage
-        } else  if !fileWriter.warningMessage!.contains("ImageNotUsed") {
-            fileWriter.warningMessage!.append(notUsedMessage)
+        if swift {
+            // Add Warning Message to output file only needed for swift
+            var notUsedMessage = ""
+            notUsedMessage.append("    /// Warning message so console is notified.\n")
+            notUsedMessage.append("    @available(iOS, deprecated: 1.0, message: \"Image Not Used\")\n")
+            notUsedMessage.append("    private class func ImageNotUsed(){}\n\n")
+            
+            if fileWriter.warningMessage == nil {
+                fileWriter.warningMessage = notUsedMessage
+            } else  if !fileWriter.warningMessage!.contains("ImageNotUsed") {
+                fileWriter.warningMessage!.append(notUsedMessage)
+            }
         }
         
         // Not found return false and add the image not used function to file
@@ -163,20 +187,28 @@ class ImagesList: ListGeneratorHelper {
             var hasMissingImage = false
             do {
                 let regex = try NSRegularExpression(pattern: "image=\".*?\"", options: NSRegularExpression.Options())
-                let regexMatches = regex.matches(in: result, options: NSRegularExpression.MatchingOptions(), range: NSMakeRange(0, result.characters.count))
+                let regexMatches = regex.matches(in: result, options: NSRegularExpression.MatchingOptions(), range: NSMakeRange(0, result.count))
                 for nextMatch in regexMatches {
                     let fullString = (result as NSString).substring(with: nextMatch.range(at: 0))
-                    let imageName = (fullString as NSString).substring(with: NSMakeRange(7, (fullString.characters.count - 8)))
+                    let imageName = (fullString as NSString).substring(with: NSMakeRange(7, (fullString.count - 8)))
                     
                     // Generate Method for file if we don't have the image in our list
                     if !allImages.contains(imageName) {
                         let methodName = ListGeneratorHelper.methodName(imageName)
                         var implementation = ""
-                        implementation.append("    /// \(imageName) is in a Storyboard or Nib but not in assets files\n")
-                        implementation.append("    private var \(methodName): UIImage? {\n")
-                        implementation.append("        MissingImage()\n")
-                        implementation.append("        return nil\n")
-                        implementation.append("    }\n\n")
+                        if swift {
+                            implementation.append("    /// \(imageName) is in a Storyboard or Nib but not in assets files\n")
+                            implementation.append("    private var \(methodName): UIImage? {\n")
+                            implementation.append("        MissingImage()\n")
+                            implementation.append("        return nil\n")
+                            implementation.append("    }\n\n")
+                        } else {
+                            implementation.append("/// \(imageName) is in a Storyboard or Nib but not in assets files\n")
+                            implementation.append("+ (UIImage *)\(methodName) {\n")
+                            implementation.append("    #warning Missing Image\n")
+                            implementation.append("    return nil;\n")
+                            implementation.append("}\n\n")
+                        }
                         fileWriter.outputMethods.append(implementation)
                         
                         hasMissingImage = true
@@ -184,8 +216,8 @@ class ImagesList: ListGeneratorHelper {
                 }
             } catch {}
             
-            // Add Warning Message to output file
-            if hasMissingImage {
+            // Add Warning Message to output file only needed for swift
+            if hasMissingImage && swift {
                 var missingImageMessage = ""
                 missingImageMessage.append("    /// Warning message so console is notified.\n")
                 missingImageMessage.append("    @available(iOS, deprecated: 1.0, message: \"Missing Storyboard or Nib Image\")\n")

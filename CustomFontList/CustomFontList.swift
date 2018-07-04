@@ -35,12 +35,31 @@ class CustomFontList: ListGeneratorHelper {
                 keys.append(methodName)
                 
                 // Generate Method For File
-                var implementation = ""
-                implementation.append("    /// \(fontName) Font\n")
-                implementation.append("    class func \(methodName)FontOfSize(_ fontSize : CGFloat) -> UIFont? {\n")
-                implementation.append("        return UIFont(name: \"\(fontName)\", size: fontSize)\n")
-                implementation.append("    }\n\n")
-                fileWriter.outputMethods.append(implementation)
+                if swift {
+                    var implementation = ""
+                    implementation.append("    /// \(fontName) Font\n")
+                    implementation.append("    class func \(methodName)FontOfSize(_ fontSize : CGFloat) -> UIFont? {\n")
+                    implementation.append("        return UIFont(name: \"\(fontName)\", size: fontSize)\n")
+                    implementation.append("    }\n\n")
+                    fileWriter.outputMethods.append(implementation)
+                } else {
+                    // Setup Method
+                    var method = "/// \(fontName) Font\n"
+                    method.append("+ (UIFont *)\(methodName)FontOfSize:(CGFloat)fontSize")
+                    
+                    // Add Method to both m and h files with appropriate endings.
+                    var implementation = method;
+                    method.append(";\n")
+                    implementation.append(" {\n")
+                    
+                    // Add additional info for method
+                    implementation.append("    return [UIFont fontWithName:@\"\(fontName)\" size:fontSize];\n")
+                    implementation.append("}\n\n")
+                    
+                    // Add Header and Method to file writer
+                    fileWriter.outputHeaders.append(method)
+                    fileWriter.outputMethods.append(implementation)
+                }
                 
                 // Add the Font to the Info Plist if missing and helper is turned on
                 if helper && infoPlist != nil {

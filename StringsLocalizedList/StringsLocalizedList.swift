@@ -42,18 +42,18 @@ class StringsLocalizedList: ListGeneratorHelper {
             hasTranslations = synchronizeFiles()
         }
         
-        // If we are verify and we need to add translations add warning messge
-        if verify && needTranslationKeys.count > 0 {
+        // If we are verify and we need to add translations add warning messge for swift classes
+        if verify && needTranslationKeys.count > 0 && swift {
             // Add Warning Message to output file
-            var missingImageMessage = ""
-            missingImageMessage.append("    /// Warning message so console is notified.\n")
-            missingImageMessage.append("    @available(iOS, deprecated: 1.0, message: \"Missing Translation\")\n")
-            missingImageMessage.append("    private static func NeedsTranslation(){}\n\n")
+            var missingTranslationMessage = ""
+            missingTranslationMessage.append("    /// Warning message so console is notified.\n")
+            missingTranslationMessage.append("    @available(iOS, deprecated: 1.0, message: \"Missing Translation\")\n")
+            missingTranslationMessage.append("    private static func NeedsTranslation(){}\n\n")
             
             if fileWriter.warningMessage == nil {
-                fileWriter.warningMessage = missingImageMessage
+                fileWriter.warningMessage = missingTranslationMessage
             } else  if !fileWriter.warningMessage!.contains("NeedsTranslation") {
-                fileWriter.warningMessage!.append(missingImageMessage)
+                fileWriter.warningMessage!.append(missingTranslationMessage)
             }
         }
         
@@ -63,19 +63,45 @@ class StringsLocalizedList: ListGeneratorHelper {
                 let methodName = ListGeneratorHelper.methodName(nextKey)
                 
                 // Add String to the file
-                var implementation = ""
-                implementation.append("    /// \(localizedString)\n")
-                implementation.append("    static var \(methodName): String {\n")
-                if hasTranslations {
-                    if verify && needTranslationKeys.contains(nextKey) {
-                        implementation.append("        NeedsTranslation()\n")
+                if swift {
+                    var implementation = ""
+                    implementation.append("    /// \(localizedString)\n")
+                    implementation.append("    static var \(methodName): String {\n")
+                    if hasTranslations {
+                        if verify && needTranslationKeys.contains(nextKey) {
+                            implementation.append("        NeedsTranslation()\n")
+                        }
+                        implementation.append("        return NSLocalizedString(\"\(nextKey)\", tableName: \"\(fileName)\", comment: \"\(localizedString)\")\n")
+                    } else {
+                        implementation.append("        return \"\(localizedString)\"\n")
                     }
-                    implementation.append("        return NSLocalizedString(\"\(nextKey)\", tableName: \"\(fileName)\", comment: \"\(localizedString)\")\n")
+                    implementation.append("    }\n\n")
+                    fileWriter.outputMethods.append(implementation)
                 } else {
-                    implementation.append("        return \"\(localizedString)\"\n")
+                    // Setup Method
+                    var method = "/// \(localizedString)\n"
+                    method.append("+ (NSString *)\(methodName)")
+                    
+                    // Add Method to both m and h files with appropriate endings.
+                    var implementation = method;
+                    method.append(";\n")
+                    implementation.append(" {\n")
+                    
+                    // Add additional info for method
+                    if hasTranslations {
+                        if verify && needTranslationKeys.contains(nextKey) {
+                            implementation.append("    #warning Needs Translation\n")
+                        }
+                        implementation.append("    return NSLocalizedStringFromTable(@\"\(nextKey)\", @\"\(fileName)\", @\"\(localizedString)\");\n")
+                    } else {
+                        implementation.append("    return @\"\(localizedString)\";\n")
+                    }
+                    implementation.append("}\n\n")
+                    
+                    // Add Header and Method to file writer
+                    fileWriter.outputHeaders.append(method)
+                    fileWriter.outputMethods.append(implementation)
                 }
-                implementation.append("    }\n\n")
-                fileWriter.outputMethods.append(implementation)
             }
         }
     }

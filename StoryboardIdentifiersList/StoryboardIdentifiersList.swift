@@ -68,12 +68,31 @@ class StoryboardIdentifiersList: ListGeneratorHelper {
         keys.append(finalMethodName)
         
         // Generate Method for file
-        var implementation = ""
-        implementation.append("    /// \(value) Identifier\n")
-        implementation.append("    static var \(finalMethodName): String {\n")
-        implementation.append("        return \"\(value)\"\n")
-        implementation.append("    }\n\n")
-        fileWriter.outputMethods.append(implementation)
+        if swift {
+            var implementation = ""
+            implementation.append("    /// \(value) Identifier\n")
+            implementation.append("    static var \(finalMethodName): String {\n")
+            implementation.append("        return \"\(value)\"\n")
+            implementation.append("    }\n\n")
+            fileWriter.outputMethods.append(implementation)
+        } else {
+            // Setup Method
+            var method = "/// \(value) Identifier\n"
+            method.append("+ (NSString *)\(finalMethodName)")
+            
+            // Add Method to both m and h files with appropriate endings.
+            var implementation = method;
+            method.append(";\n")
+            implementation.append(" {\n")
+            
+            // Add additional info for method
+            implementation.append("    return @\"\(value)\";\n")
+            implementation.append("}\n\n")
+            
+            // Add Header and Method to file writer
+            fileWriter.outputHeaders.append(method)
+            fileWriter.outputMethods.append(implementation)
+        }
     }
     
 }

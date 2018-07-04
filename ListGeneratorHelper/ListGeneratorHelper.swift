@@ -20,6 +20,7 @@ class ListGeneratorHelper: NSObject {
     var singleFile: Bool = true
     var verify: Bool = true
     var helper: Bool = true
+    var swift: Bool = true
     var fileWriter: FileWriter = FileWriter()
     
     class func startWithArguments(_ args: [String]) {
@@ -34,6 +35,7 @@ class ListGeneratorHelper: NSObject {
         var singleFile: Bool = true
         var verify: Bool = true
         var helper: Bool = true
+        var swift: Bool = true
         
         // If running in project run script we can get some information about the projects so it doesn't have to be entered in the command line.
         // Get the apps minimum version number
@@ -58,7 +60,7 @@ class ListGeneratorHelper: NSObject {
         for i in 0..<args.count {
             let nextArg = args[i]
             if nextArg == "-h" {
-                print("Usage: \(scriptName) [-s <path>] [-o <path>] [-i <path>] [-v <version>] [-p <prefix>] [-m] [-dnverify] [-dnhelp]")
+                print("Usage: \(scriptName) [-s <path>] [-o <path>] [-i <path>] [-v <version>] [-p <prefix>] [-m] [-dnverify] [-dnhelp] [-objc]")
                 print("       \(scriptName) -h")
                 print("Options:\n")
                 print("    -s <path>    Search for folders starting from <path> (Default is Project Souce Directory)")
@@ -69,6 +71,7 @@ class ListGeneratorHelper: NSObject {
                 print("    -m           Generates each source in their own file (Default is to generate one file with content from all sources)")
                 print("    -dnverify    Do not verify any of the code (Default is to always verify)")
                 print("    -dnhelp      Do not execute any of the helper code (Default is to always execute the helper code)")
+                print("    -objc        Write the file in Objective C (Default is to write in swift)")
                 print("    -h           Print this help and exit")
                 return
             } else if nextArg == "-s" {
@@ -89,6 +92,8 @@ class ListGeneratorHelper: NSObject {
                 verify = false
             } else if nextArg == "-dnhelp" {
                 helper = false
+            } else if nextArg == "-objc" {
+                swift = false
             }
         }
         
@@ -131,12 +136,14 @@ class ListGeneratorHelper: NSObject {
             fileGenerator.singleFile = singleFile
             fileGenerator.verify = verify
             fileGenerator.helper = helper
+            fileGenerator.swift = swift
             // Setup The Writer information
             fileGenerator.fileWriter.scriptName = scriptName
             fileGenerator.fileWriter.outputBasePath = outputhPath
             fileGenerator.fileWriter.fileTypes = fileTypes
             fileGenerator.fileWriter.fileName = (nextFile as NSString).lastPathComponent
             fileGenerator.fileWriter.singleFile = singleFile
+            fileGenerator.fileWriter.swift = swift
             fileGenerator.startGeneratingInfo()
             if !singleFile {
                 // Each File needs their own so write the output.
@@ -167,7 +174,7 @@ class ListGeneratorHelper: NSObject {
         
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         if let output = String(data: data, encoding: String.Encoding.utf8) {
-            if output.characters.count > 0 {
+            if output.count > 0 {
                 return "\(output.dropLast())"
             }
         }

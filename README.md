@@ -45,7 +45,7 @@ mkdir -p "$GENERATED_FOLDER"
 
 ## Executable Command Line Options
 ```Shell
-Usage: ExecutableName [-s <path>] [-o <path>] [-i <path>] [-v <version>] [-p <prefix>] [-m] [-dnverify] [-dnhelp]
+Usage: ExecutableName [-s <path>] [-o <path>] [-i <path>] [-v <version>] [-p <prefix>] [-m] [-dnverify] [-dnhelp] [-objc]
        ExecutableName [-h]
 Options:
     -s <path>    Search for folders starting from <path> (Default is Project Souce Directory)
@@ -56,6 +56,7 @@ Options:
     -m           Generates each source in their own file (Default is to generate one file with content from all sources)
     -dnverify    Do not verify any of the code (Default is to always verify)
     -dnhelp      Do not execute any of the helper code (Default is to always execute the helper code)
+    -objc        Write the file in Objective C (Default is to write in swift)
     -h           Print this help and exit
 ```
 

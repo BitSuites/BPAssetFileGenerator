@@ -29,6 +29,11 @@
 		BD2BA5211F8D586000C76EBB /* ListGeneratorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2BA51D1F8D585900C76EBB /* ListGeneratorHelper.swift */; };
 		BD2BA5221F8D586100C76EBB /* ListGeneratorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2BA51D1F8D585900C76EBB /* ListGeneratorHelper.swift */; };
 		BD2BA5241F8D58BB00C76EBB /* ColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2BA5231F8D58BB00C76EBB /* ColorList.swift */; };
+		BD8C870420ED4246007F37A5 /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8C870320ED41B7007F37A5 /* Images.m */; };
+		BD8C870720ED4808007F37A5 /* Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8C870520ED4808007F37A5 /* Fonts.m */; };
+		BD8C870A20ED4F54007F37A5 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8C870920ED4F54007F37A5 /* Colors.m */; };
+		BD8C870D20ED5D32007F37A5 /* Identifiers.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8C870C20ED5D32007F37A5 /* Identifiers.m */; };
+		BD8C871020ED5E77007F37A5 /* Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8C870F20ED5E77007F37A5 /* Strings.m */; };
 		BDCC341E1F8EF13900276196 /* CustomFontList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCC341D1F8EF13900276196 /* CustomFontList.swift */; };
 		BDCC34201F8EF14500276196 /* StringsLocalizedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCC341F1F8EF14500276196 /* StringsLocalizedList.swift */; };
 		BDCC34221F8EF14F00276196 /* ImagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCC34211F8EF14F00276196 /* ImagesList.swift */; };
@@ -122,6 +127,16 @@
 		BD2BA5151F8D55FC00C76EBB /* NonLoclizedStrings.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = NonLoclizedStrings.strings; sourceTree = "<group>"; };
 		BD2BA51D1F8D585900C76EBB /* ListGeneratorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGeneratorHelper.swift; sourceTree = "<group>"; };
 		BD2BA5231F8D58BB00C76EBB /* ColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorList.swift; sourceTree = "<group>"; };
+		BD8C870220ED3E68007F37A5 /* Images.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
+		BD8C870320ED41B7007F37A5 /* Images.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = "<group>"; };
+		BD8C870520ED4808007F37A5 /* Fonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fonts.m; sourceTree = "<group>"; };
+		BD8C870620ED4808007F37A5 /* Fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fonts.h; sourceTree = "<group>"; };
+		BD8C870820ED4F54007F37A5 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		BD8C870920ED4F54007F37A5 /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
+		BD8C870B20ED5D32007F37A5 /* Identifiers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Identifiers.h; sourceTree = "<group>"; };
+		BD8C870C20ED5D32007F37A5 /* Identifiers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Identifiers.m; sourceTree = "<group>"; };
+		BD8C870E20ED5E77007F37A5 /* Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Strings.h; sourceTree = "<group>"; };
+		BD8C870F20ED5E77007F37A5 /* Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Strings.m; sourceTree = "<group>"; };
 		BDCC341D1F8EF13900276196 /* CustomFontList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontList.swift; sourceTree = "<group>"; };
 		BDCC341F1F8EF14500276196 /* StringsLocalizedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsLocalizedList.swift; sourceTree = "<group>"; };
 		BDCC34211F8EF14F00276196 /* ImagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesList.swift; sourceTree = "<group>"; };
@@ -303,6 +318,8 @@
 		BDCC345E1F912C7B00276196 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
+				BD8C870820ED4F54007F37A5 /* Colors.h */,
+				BD8C870920ED4F54007F37A5 /* Colors.m */,
 				BDCC34611F912C7B00276196 /* Colors.swift */,
 				BDCC345F1F912C7B00276196 /* BPColorsAssetsColors.swift */,
 				BDCC34601F912C7B00276196 /* BPColorsStringsColors.swift */,
@@ -313,6 +330,8 @@
 		BDCC34621F912C7B00276196 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				BD8C870620ED4808007F37A5 /* Fonts.h */,
+				BD8C870520ED4808007F37A5 /* Fonts.m */,
 				BDCC34631F912C7B00276196 /* Fonts.swift */,
 			);
 			path = Fonts;
@@ -321,6 +340,8 @@
 		BDCC34641F912C7B00276196 /* Identifiers */ = {
 			isa = PBXGroup;
 			children = (
+				BD8C870B20ED5D32007F37A5 /* Identifiers.h */,
+				BD8C870C20ED5D32007F37A5 /* Identifiers.m */,
 				BDCC34671F912C7B00276196 /* Identifiers.swift */,
 				BDCC34651F912C7B00276196 /* BPLaunchScreenStoryboardIdentifiers.swift */,
 				BDCC34661F912C7B00276196 /* BPMainStoryboardIdentifiers.swift */,
@@ -331,6 +352,8 @@
 		BDCC34681F912C7B00276196 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BD8C870220ED3E68007F37A5 /* Images.h */,
+				BD8C870320ED41B7007F37A5 /* Images.m */,
 				BDCC346A1F912C7B00276196 /* Images.swift */,
 				BDCC34691F912C7B00276196 /* BPImagesImages.swift */,
 			);
@@ -340,6 +363,8 @@
 		BDCC346B1F912C7B00276196 /* Strings */ = {
 			isa = PBXGroup;
 			children = (
+				BD8C870E20ED5E77007F37A5 /* Strings.h */,
+				BD8C870F20ED5E77007F37A5 /* Strings.m */,
 				BDCC346F1F912C7B00276196 /* Strings.swift */,
 				BDCC346C1F912C7B00276196 /* BPLocalizableStrings.swift */,
 				BDCC346D1F912C7B00276196 /* BPNonLoclizedStringsStrings.swift */,
@@ -376,6 +401,7 @@
 				BD2BA4D01F8D547200C76EBB /* Sources */,
 				BD2BA4D11F8D547200C76EBB /* Frameworks */,
 				BD2BA4D21F8D547200C76EBB /* CopyFiles */,
+				BD8C871120ED6291007F37A5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -393,6 +419,7 @@
 				BD2BA4DB1F8D549E00C76EBB /* Sources */,
 				BD2BA4DC1F8D549E00C76EBB /* Frameworks */,
 				BD2BA4DD1F8D549E00C76EBB /* CopyFiles */,
+				BD8C871220ED63A7007F37A5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -410,6 +437,7 @@
 				BD2BA4E61F8D54BA00C76EBB /* Sources */,
 				BD2BA4E71F8D54BA00C76EBB /* Frameworks */,
 				BD2BA4E81F8D54BA00C76EBB /* CopyFiles */,
+				BD8C871320ED63BB007F37A5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -427,6 +455,7 @@
 				BD2BA4F11F8D54D700C76EBB /* Sources */,
 				BD2BA4F21F8D54D700C76EBB /* Frameworks */,
 				BD2BA4F31F8D54D700C76EBB /* CopyFiles */,
+				BD8C871420ED63CC007F37A5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -444,6 +473,7 @@
 				BD2BA4FC1F8D54E300C76EBB /* Sources */,
 				BD2BA4FD1F8D54E300C76EBB /* Frameworks */,
 				BD2BA4FE1F8D54E300C76EBB /* CopyFiles */,
+				BD8C871520ED63E1007F37A5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -461,7 +491,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = BitSuties;
 				TargetAttributes = {
 					BD2BA4BA1F8D541C00C76EBB = {
@@ -540,7 +570,72 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "DERIVED_SOURCES=\"$SRCROOT/BPAssetFileGenerator/Generated\"\n\nIDENTIFIERS_PATH=\"$DERIVED_SOURCES/Identifiers\"\nCATALOGS_PATH=\"$DERIVED_SOURCES/Images\"\nFONTS_PATH=\"$DERIVED_SOURCES/Fonts\"\nCOLORS_PATH=\"$DERIVED_SOURCES/Colors\"\nSTRINGS_PATH=\"$DERIVED_SOURCES/Strings\"\n\nrm -rf \"$IDENTIFIERS_PATH\"\nrm -rf \"$CATALOGS_PATH\"\nrm -rf \"$FONTS_PATH\"\nrm -rf \"$COLORS_PATH\"\nrm -rf \"$STRINGS_PATH\"\nmkdir -p \"$IDENTIFIERS_PATH\"\nmkdir -p \"$CATALOGS_PATH\"\nmkdir -p \"$FONTS_PATH\"\nmkdir -p \"$COLORS_PATH\"\nmkdir -p \"$STRINGS_PATH\"\n\n# Simple Color File From All Sources\n\"$BUILD_ROOT/$CONFIGURATION/ColorList\" -o \"$COLORS_PATH\"\n# Multiple Color Files With Prefix\n\"$BUILD_ROOT/$CONFIGURATION/ColorList\" -o \"$COLORS_PATH\" -p BP -m\n# Simple Identifiers File From All Sources\n\"$BUILD_ROOT/$CONFIGURATION/StoryboardIdentifiersList\" -o \"$IDENTIFIERS_PATH\"\n# Multiple Identifier Files With Prefix\n\"$BUILD_ROOT/$CONFIGURATION/StoryboardIdentifiersList\" -o \"$IDENTIFIERS_PATH\" -p BP -m\n# Simple Fonts File From all Font Files\n\"$BUILD_ROOT/$CONFIGURATION/CustomFontList\" -o \"$FONTS_PATH\"\n# Simple Images File From All Sources\n\"$BUILD_ROOT/$CONFIGURATION/ImagesList\" -o \"$CATALOGS_PATH\"\n# Multiple Images Files With Prefix\n\"$BUILD_ROOT/$CONFIGURATION/ImagesList\" -o \"$CATALOGS_PATH\" -p BP -m -dnverify\n# Simple Strings File From All Sources\n\"$BUILD_ROOT/$CONFIGURATION/StringsLocalizedList\" -o \"$STRINGS_PATH\"\n# Multiple Strings Files With Prefix\n\"$BUILD_ROOT/$CONFIGURATION/StringsLocalizedList\" -o \"$STRINGS_PATH\" -p BP -m";
+			shellScript = "DERIVED_SOURCES=\"$SRCROOT/BPAssetFileGenerator/Generated\"\nEXECUTABLES=\"$SRCROOT/Executables/\"\n\nIDENTIFIERS_PATH=\"$DERIVED_SOURCES/Identifiers\"\nCATALOGS_PATH=\"$DERIVED_SOURCES/Images\"\nFONTS_PATH=\"$DERIVED_SOURCES/Fonts\"\nCOLORS_PATH=\"$DERIVED_SOURCES/Colors\"\nSTRINGS_PATH=\"$DERIVED_SOURCES/Strings\"\n\nrm -rf \"$IDENTIFIERS_PATH\"\nrm -rf \"$CATALOGS_PATH\"\nrm -rf \"$FONTS_PATH\"\nrm -rf \"$COLORS_PATH\"\nrm -rf \"$STRINGS_PATH\"\nmkdir -p \"$IDENTIFIERS_PATH\"\nmkdir -p \"$CATALOGS_PATH\"\nmkdir -p \"$FONTS_PATH\"\nmkdir -p \"$COLORS_PATH\"\nmkdir -p \"$STRINGS_PATH\"\n\n# Simple Color File From All Sources\n\"$EXECUTABLES/ColorList\" -o \"$COLORS_PATH\"\n# Simple Color File From All Sources in objective c\n\"$EXECUTABLES/ColorList\" -o \"$COLORS_PATH\" -objc\n# Multiple Color Files With Prefix\n\"$EXECUTABLES/ColorList\" -o \"$COLORS_PATH\" -p BP -m\n# Simple Identifiers File From All Sources\n\"$EXECUTABLES/StoryboardIdentifiersList\" -o \"$IDENTIFIERS_PATH\"\n# Simple Identifiers File From All Sources in objective c\n\"$EXECUTABLES/StoryboardIdentifiersList\" -o \"$IDENTIFIERS_PATH\" -objc\n# Multiple Identifier Files With Prefix\n\"$EXECUTABLES/StoryboardIdentifiersList\" -o \"$IDENTIFIERS_PATH\" -p BP -m\n# Simple Fonts File From all Font Files\n\"$EXECUTABLES/CustomFontList\" -o \"$FONTS_PATH\"\n# Simple Fonts File From all Font Files in objective c\n\"$EXECUTABLES/CustomFontList\" -o \"$FONTS_PATH\" -objc\n# Simple Images File From All Sources\n\"$EXECUTABLES/ImagesList\" -o \"$CATALOGS_PATH\"\n# Simple Images File From All Sources in objective c\n\"$EXECUTABLES/ImagesList\" -o \"$CATALOGS_PATH\" -objc\n# Multiple Images Files With Prefix\n\"$EXECUTABLES/ImagesList\" -o \"$CATALOGS_PATH\" -p BP -m -dnverify\n# Simple Strings File From All Sources\n\"$EXECUTABLES/StringsLocalizedList\" -o \"$STRINGS_PATH\"\n# Simple Strings File From All Sources in objective c\n\"$EXECUTABLES/StringsLocalizedList\" -o \"$STRINGS_PATH\" -objc\n# Multiple Strings Files With Prefix\n\"$EXECUTABLES/StringsLocalizedList\" -o \"$STRINGS_PATH\" -p BP -m";
+		};
+		BD8C871120ED6291007F37A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"$BUILD_ROOT/$CONFIGURATION/ColorList\" \"$SRCROOT/Executables/\"";
+		};
+		BD8C871220ED63A7007F37A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"$BUILD_ROOT/$CONFIGURATION/StringsLocalizedList\" \"$SRCROOT/Executables/\"";
+		};
+		BD8C871320ED63BB007F37A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"$BUILD_ROOT/$CONFIGURATION/CustomFontList\" \"$SRCROOT/Executables/\"";
+		};
+		BD8C871420ED63CC007F37A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"$BUILD_ROOT/$CONFIGURATION/ImagesList\" \"$SRCROOT/Executables/\"";
+		};
+		BD8C871520ED63E1007F37A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"$BUILD_ROOT/$CONFIGURATION/StoryboardIdentifiersList\" \"$SRCROOT/Executables/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -558,10 +653,15 @@
 				BDCC34781F912C8F00276196 /* BPImagesImages.swift in Sources */,
 				BDCC34701F912C8F00276196 /* Colors.swift in Sources */,
 				BDCC34711F912C8F00276196 /* BPColorsAssetsColors.swift in Sources */,
+				BD8C870420ED4246007F37A5 /* Images.m in Sources */,
 				BDCC34741F912C8F00276196 /* Identifiers.swift in Sources */,
 				BDCC347B1F912C8F00276196 /* BPNonLoclizedStringsStrings.swift in Sources */,
 				BDCC34771F912C8F00276196 /* Images.swift in Sources */,
+				BD8C870A20ED4F54007F37A5 /* Colors.m in Sources */,
+				BD8C871020ED5E77007F37A5 /* Strings.m in Sources */,
 				BDCC34731F912C8F00276196 /* Fonts.swift in Sources */,
+				BD8C870D20ED5D32007F37A5 /* Identifiers.m in Sources */,
+				BD8C870720ED4808007F37A5 /* Fonts.m in Sources */,
 				BDCC34791F912C8F00276196 /* Strings.swift in Sources */,
 				BD2BA4BF1F8D541C00C76EBB /* AppDelegate.swift in Sources */,
 			);
@@ -665,6 +765,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -675,6 +776,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -682,6 +784,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -722,6 +825,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -732,6 +836,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -739,6 +844,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
