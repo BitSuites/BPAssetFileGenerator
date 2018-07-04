@@ -141,3 +141,7 @@ For the Duplicate Font Check it will write all fonts to the file even if there a
 ##### Helpers #####
 A helper this class executes is adding the font name to the info plist file. In order for a font to work in an app it needs to be in the info plist so if we have a valid plist we will add the font if it doesn't already exist preventing the issue of forgetting to add it to the plist.
 
+## License
+
+[BPAssetFileGenerator](https://github.com/BitSuites/BPAssetFileGenerator) was created by Justin Carstens and released under a [MIT License](License).
+
